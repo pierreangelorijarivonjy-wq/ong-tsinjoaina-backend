@@ -1,0 +1,24 @@
+# render.yaml — Configuration déploiement Render pour Tsinjo Aina API
+# https://render.com/docs/yaml-spec
+
+services:
+  - type: web
+    name: api-tsinjoaina
+    runtime: node
+    region: frankfurt  # Changer selon votre région préférée (oregon, singapore, etc.)
+    plan: free         # Passer à "starter" en production ($7/mois, pas de sleep)
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true   # Auto-deploy depuis GitHub
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false        # À configurer manuellement dans le dashboard Render
+      - key: JWT_SECRET
+        generateValue: false  # À configurer manuellement dans le dashboard Render
+      - key: JWT_EXPIRES_IN
+        value: 24h
+      - key: CORS_ORIGIN
+        value: https://tsinjoaina.vercel.app  # Remplacer par votre domaine Vercel réel
