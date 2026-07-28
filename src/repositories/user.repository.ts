@@ -205,7 +205,7 @@ export class UserRepository
   // ─── Opérations spécifiques ───────────────────────────────────────────────────
 
   async toggleActif(id: number | string): Promise<{ id: number; actif: boolean } | null> {
-    const result = await db.query(
+    const result = await db.query<{ id: number; actif: boolean }>(
       `UPDATE users
        SET actif = NOT actif
        WHERE id = $1 AND deleted = FALSE

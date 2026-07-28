@@ -13,11 +13,8 @@ import { AuthRequest } from "../types";
 
 export const usersController = {
   /** GET /users */
-  async getAll(req: AuthRequest, res: Response): Promise<void> {
-    const { search } = req.query;
-    const data = await userService.getAll(
-      search ? { search: search as string } : {}
-    );
+  async getAll(_req: AuthRequest, res: Response): Promise<void> {
+    const data = await userService.getAll();
     res.json({ success: true, data });
   },
 
